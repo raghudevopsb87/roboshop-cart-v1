@@ -6,21 +6,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
-        run: |
-          sleep 40
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
-        run: echo Hello, world!
-      - name: Run a multi-line script
-        run: |
-          sleep 30
+        run: echo npm test ## We will not have echo command in real world. Since this is a test application there are not test cases built.
+
+  docker:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker built -t cart .
+        name: Docker Build
+
+
+
