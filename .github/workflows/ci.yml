@@ -25,4 +25,16 @@ jobs:
       - run: docker push 739561048503.dkr.ecr.us-east-1.amazonaws.com/cart
         name: Docker push
 
+  dev-deploy:
+    needs: docker
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: raghudevopsb87/roboshop-helm-v1
+      - name: Get kubectl config
+        run: aws eks update-kubeconfig --name dev
+      - name: Helm deploy app
+        run: helm upgrade -i cart . -f dev-project-values/cart.yml
+
 
