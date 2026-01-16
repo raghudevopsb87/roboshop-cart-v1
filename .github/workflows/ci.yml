@@ -53,7 +53,7 @@ jobs:
 
 
   uat-deploy:
-    needs: dev-deploy
+    needs: qa-deploy
     runs-on: self-hosted
     environment: uat
     steps:
@@ -66,7 +66,7 @@ jobs:
         run: echo helm upgrade -i cart . -f uat-project-values/cart.yml
 
   prod-deploy:
-    needs: dev-deploy
+    needs: uat-deploy
     runs-on: self-hosted
     environment: prod
     steps:
